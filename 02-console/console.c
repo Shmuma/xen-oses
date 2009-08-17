@@ -1,8 +1,9 @@
 #include <stdint.h>
 #include <xen.h>
-
 #include <event_channel.h>
 #include <io/console.h>
+
+#include <barrier.h>
 
 #include "console.h"
 
@@ -22,3 +23,34 @@ int console_init (start_info_t *start)
 }
 
 
+
+int console_write (const char *msg)
+{
+	struct evtchn_send event;
+	int length = 0;
+
+	event.port = console_evt;
+
+	while (*msg) {
+		XENCONS_RING_IDX data;
+
+		do {
+			data = console->out_prod - console->out_cons;
+			HYPERVISOR_event_channel_op (EVTCHNOP_send, &event);
+			mb ();
+		}
+		while (data >= sizeof (console->out));
+
+		int ring_index = MASK_XENCONS_IDX (console->out_prod, console->out);
+		console->out[ring_index] = *msg;
+
+		wmb ();
+		console->out_prod++;
+
+		length++;
+		msg++;
+	}
+
+	HYPERVISOR_event_channel_op (EVTCHNOP_send, &event);
+	return length;
+}
