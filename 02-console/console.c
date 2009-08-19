@@ -34,12 +34,10 @@ int console_write (const char *msg)
 	while (*msg) {
 		XENCONS_RING_IDX data;
 
-		do {
-			data = console->out_prod - console->out_cons;
+		while (console->out_prod - console->out_cons >= sizeof (console->out)) {
 			HYPERVISOR_event_channel_op (EVTCHNOP_send, &event);
 			mb ();
 		}
-		while (data >= sizeof (console->out));
 
 		int ring_index = MASK_XENCONS_IDX (console->out_prod, console->out);
 
@@ -59,4 +57,13 @@ int console_write (const char *msg)
 
 	HYPERVISOR_event_channel_op (EVTCHNOP_send, &event);
 	return length;
+}
+
+
+void console_flush (void)
+{
+	while (console->out_cons < console->out_prod) {
+		HYPERVISOR_sched_op (SCHEDOP_yield, 0);
+		mb ();
+	}
 }

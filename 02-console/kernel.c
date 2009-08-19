@@ -15,19 +15,21 @@ shared_info_t *HYPERVISOR_shared_info;
 /* Main kernel entry point, called by trampoline */
 void start_kernel (start_info_t *start_info)
 {
-/* 	/\* Map the shared info page *\/ */
-/* 	HYPERVISOR_update_va_mapping((unsigned long) &shared_info,  */
-/* 			__pte(start_info->shared_info | 7), */
-/* 			UVMF_INVLPG); */
+	/* Map the shared info page */
+	HYPERVISOR_update_va_mapping((unsigned long) &shared_info,
+				     __pte(start_info->shared_info | 7),
+				     UVMF_INVLPG);
 
 	/* initialize console driver */
 	console_init (start_info);
 
 	console_write ("Hello, Xen world!\n");
+	console_write ("Xen magic string: ");
+	console_write (start_info->magic);
+	console_write ("\n");
+	console_flush ();
 
 	/* Loop, handling events */
 	while(1)
-	{
-		HYPERVISOR_sched_op(SCHEDOP_block, 0);
-	}
+		HYPERVISOR_sched_op (SCHEDOP_block, 0);
 }
