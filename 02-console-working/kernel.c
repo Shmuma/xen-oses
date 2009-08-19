@@ -29,9 +29,11 @@ void start_kernel(start_info_t * start_info)
 	/* Write a message to check that it worked */
 	console_write("Hello world!\r\n");
 
-	/* Loop, handling events */
-	while(1)
-	{
-		HYPERVISOR_sched_op(SCHEDOP_block,0);
-	}
+	while (1);
+
+/* 	/\* Loop, handling events *\/ */
+/* 	while(1) */
+/* 	{ */
+/* 		HYPERVISOR_sched_op(SCHEDOP_block,0); */
+/* 	} */
 }
