@@ -23,12 +23,11 @@ void start_kernel (start_info_t *start_info)
 	/* initialize console driver */
 	console_init (start_info);
 
-	console_write ("Hello, Fucking world!\n");
-	console_flush ();
+	console_write ("Hello, Xen world!\n");
 
 	/* Loop, handling events */
 	while(1)
 	{
-		HYPERVISOR_sched_op(SCHEDOP_block,0);
+		HYPERVISOR_sched_op(SCHEDOP_block, 0);
 	}
 }

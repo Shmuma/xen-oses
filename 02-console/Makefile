@@ -1,4 +1,4 @@
-CPPFLAGS += -I/usr/src/linux/include/xen/interface -Iinclude
+CPPFLAGS += -I/usr/src/linux/include/xen/interface -Iinclude -D__XEN_INTERFACE_VERSION__=0x00030203
 LDFLAGS  += -nostdlib -T example.lds
 CFLAGS   += -std=c99 -m32
 ASFLAGS   = -D__ASSEMBLY__ -m32
