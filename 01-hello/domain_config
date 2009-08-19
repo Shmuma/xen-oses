@@ -7,12 +7,12 @@
 #parameters for the domain on the xm command line.
 #====================================================
 #Kernel image file.
-kernel = "/home/shmuma/work/xen/hello/testkernel"
+kernel = "/home/shmuma/work/xen/oses/01-hello/testkernel"
 # Initial memory allocation (in megabytes) for the new
 # domain.
 memory = 32
 # A name for your domain. All domains must have
 # different names.
-name = "Simplest_Kernel"
+name = "tiny"
 
 on_crash = 'destroy'
