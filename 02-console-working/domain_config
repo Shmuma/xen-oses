@@ -7,7 +7,7 @@
 #parameters for the domain on the xm command line.
 #====================================================
 #Kernel image file.
-kernel = "/home/shmuma/work/xen/oses/03/testkernel"
+kernel = "/home/shmuma/work/xen/oses/02-console-working/testkernel"
 # Initial memory allocation (in megabytes) for the new
 # domain.
 memory = 32
