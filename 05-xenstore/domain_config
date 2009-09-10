@@ -13,5 +13,5 @@ kernel = "/home/shmuma/work/xen/oses/05-xenstore/testkernel"
 memory = 32
 # A name for your domain. All domains must have
 # different names.
-name = "cons"
+name = "store"
 on_crash = 'destroy'

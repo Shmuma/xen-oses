@@ -7,6 +7,8 @@
 
 void console_init (start_info_t *start_info);
 int  console_write (const char *msg);
-int console_read(char * buffer, int n);
+int  console_read(char * buffer, int n);
+int  console_write_int (int value, char *format);
+
 
 #endif

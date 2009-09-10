@@ -2,8 +2,10 @@
 #include <xen.h>
 #include <sched.h>
 #include <barrier.h>
+
 #include "console.h"
 #include "event.h"
+#include "lib.h"
 
 static evtchn_port_t event_channel;
 extern char _text;
@@ -95,4 +97,13 @@ void console_flush(void)
 		HYPERVISOR_sched_op(SCHEDOP_yield, 0);
 		mb();
 	}
+}
+
+
+int console_write_int (int value, char *format)
+{
+	static char buf[1024];
+
+	snprintf (buf, sizeof (buf), format, value);
+	return console_write (buf);
 }
