@@ -74,7 +74,7 @@ void do_hypervisor_callback (struct pt_regs *regs)
 {
 	unsigned int pending_selector;
 	unsigned int next_event_offset;
-	vcpu_info_t *vcpu = &shared_info.vcpu_info[0];
+	vcpu_info_t *vcpu = (vcpu_info_t*)&shared_info.vcpu_info[0];
 
 	/* Make sure we don't lose the edge on new events... */
 	vcpu->evtchn_upcall_pending = 0;
