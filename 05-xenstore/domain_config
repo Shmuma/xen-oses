@@ -7,11 +7,11 @@
 #parameters for the domain on the xm command line.
 #====================================================
 #Kernel image file.
-kernel = "/home/shmuma/work/xen/oses/04-xenstore/testkernel"
+kernel = "/home/shmuma/work/xen/oses/05-xenstore/testkernel"
 # Initial memory allocation (in megabytes) for the new
 # domain.
 memory = 32
 # A name for your domain. All domains must have
 # different names.
-name = "store"
+name = "cons"
 on_crash = 'destroy'
