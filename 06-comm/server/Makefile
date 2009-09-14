@@ -8,8 +8,9 @@ ASFLAGS   = -D__ASSEMBLY__ -m32
 all: testkernel
 
 LIB_OBJS = lib/printf.o lib/string.o lib/ctype.o lib/math.o
+OBJS = bootstrap.x86_32.o kernel.o console.o event.o store.o server.o
 
-testkernel: bootstrap.x86_32.o kernel.o console.o event.o store.o $(LIB_OBJS)
+testkernel: $(OBJS) $(LIB_OBJS)
 	$(CC) $(LDFLAGS) $^ -o testkernel
 
 clean:

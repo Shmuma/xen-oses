@@ -1,6 +1,8 @@
 #ifndef __SERVER_H__
 #define __SERVER_H__
 
-void server_init ();
+#include <xen.h>
+
+int server_init (start_info_t *si);
 
 #endif
