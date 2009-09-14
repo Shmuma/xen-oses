@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdarg.h>
 #include <xen.h>
 #include <sched.h>
 #include <barrier.h>
@@ -102,8 +103,18 @@ void console_flush(void)
 
 int console_write_int (int value, char *format)
 {
-	static char buf[1024];
+	return printk (format, value);
+}
 
-	snprintf (buf, sizeof (buf), format, value);
+
+int  printk (char *format, ...)
+{
+	static char buf[1024];
+	va_list va;
+	int res;
+
+	va_start (va, format);
+	vsnprintf (buf, sizeof (buf), format, va);
+	va_end (va);
 	return console_write (buf);
 }
